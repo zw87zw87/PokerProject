@@ -21,8 +21,8 @@ public enum PokerNum {
     THIRTEEN('K', 13),
     ONE('A', 14);
 
-    private final Character name;
-    private final int num;
+    public final Character name;
+    public final int num;
 
     PokerNum(Character name, int num) {
         this.name = name;
