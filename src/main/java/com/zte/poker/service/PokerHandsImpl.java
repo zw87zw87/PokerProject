@@ -7,6 +7,7 @@ import com.zte.poker.exception.ParameterException;
 
 public class PokerHandsImpl implements PokerHands {
 
+    @Override
     public GameResult playGame(String black, String white) throws ParameterException {
         PokerPlayer player1 = new PokerPlayer(black);
         PokerPlayer player2 = new PokerPlayer(white);
@@ -19,12 +20,11 @@ public class PokerHandsImpl implements PokerHands {
         } else if (player1.getPokerRank().priority < player2.getPokerRank().priority) {
             return GameResult.LOSS;
         }
-
         return player1.getPokerRank().compareSameRank.apply(player1.getPokers(), player2.getPokers());
     }
 
     private static void setPokerRank(PokerPlayer player, PokerRank rank) {
-        if (player.getPokerRank() == null && rank.isSatisfy.apply(player.getPokers())) {
+        if (player.getPokerRank() == null && rank.isCurrentRank.apply(player.getPokers())) {
             player.setPokerRank(rank);
         }
     }

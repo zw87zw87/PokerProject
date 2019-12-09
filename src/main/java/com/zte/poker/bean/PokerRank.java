@@ -24,12 +24,12 @@ public enum PokerRank {
     HIGH_CARD(1, pokers -> true, PokerRank::comparePokerOneByOne);
 
     public final Integer priority;
-    public final Function<List<Poker>, Boolean> isSatisfy;
+    public final Function<List<Poker>, Boolean> isCurrentRank;
     public final BiFunction<List<Poker>, List<Poker>, GameResult> compareSameRank;
 
-    PokerRank(Integer priority, Function<List<Poker>, Boolean> isSatisfy, BiFunction<List<Poker>, List<Poker>, GameResult> compareSameRank) {
+    PokerRank(Integer priority, Function<List<Poker>, Boolean> isCurrentRank, BiFunction<List<Poker>, List<Poker>, GameResult> compareSameRank) {
         this.priority = priority;
-        this.isSatisfy = isSatisfy;
+        this.isCurrentRank = isCurrentRank;
         this.compareSameRank = compareSameRank;
     }
 
@@ -46,15 +46,34 @@ public enum PokerRank {
         return pokerNum2SizeMap.containsValue(pairsNum) && pokerNum2SizeMap.size() == pairsSize;
     }
 
+    private static GameResult compareStraight(List<Poker> pokers1, List<Poker> pokers2) {
+        List<PokerNum> pokerNums1 = getPokerNums(pokers1);
+        List<PokerNum> pokerNums2 = getPokerNums(pokers2);
+
+        if (pokers1.containsAll(PokerConstant.POKER_NUM_OF_1_2_3_4_5)) {
+            if (pokers2.containsAll(PokerConstant.POKER_NUM_OF_1_2_3_4_5)) {
+                return GameResult.DRAW;
+            }
+            return GameResult.LOSS;
+        } else if (pokers2.containsAll(PokerConstant.POKER_NUM_OF_1_2_3_4_5)) {
+            return GameResult.WIN;
+        }
+
+        return compareNumOneByOne(pokerNums1, pokerNums2);
+    }
+
+    private static GameResult comparePairs(List<Poker> pokers1, List<Poker> pokers2) {
+        List<PokerNum> sortedPokers1 = getSortedPokerPairs(pokers1);
+        List<PokerNum> sortedPokers2 = getSortedPokerPairs(pokers2);
+
+        return compareNumOneByOne(sortedPokers1, sortedPokers2);
+    }
+
     private static GameResult comparePokerOneByOne(List<Poker> pokers1, List<Poker> pokers2) {
         List<PokerNum> pokerNums1 = getPokerNums(pokers1);
         List<PokerNum> pokerNums2 = getPokerNums(pokers2);
 
         return compareNumOneByOne(pokerNums1, pokerNums2);
-    }
-
-    private static List<PokerNum> getPokerNums(List<Poker> pokers) {
-        return pokers.stream().map(Poker::getNum).collect(Collectors.toList());
     }
 
     private static GameResult compareNumOneByOne(List<PokerNum> pokers1, List<PokerNum> pokers2) {
@@ -68,13 +87,6 @@ public enum PokerRank {
             }
         }
         return GameResult.DRAW;
-    }
-
-    private static GameResult comparePairs(List<Poker> pokers1, List<Poker> pokers2) {
-        List<PokerNum> sortedPokers1 = getSortedPokerPairs(pokers1);
-        List<PokerNum> sortedPokers2 = getSortedPokerPairs(pokers2);
-
-        return compareNumOneByOne(sortedPokers1, sortedPokers2);
     }
 
     private static List<PokerNum> getSortedPokerPairs(List<Poker> pokers) {
@@ -95,19 +107,7 @@ public enum PokerRank {
         return compare;
     }
 
-    private static GameResult compareStraight(List<Poker> pokers1, List<Poker> pokers2) {
-        List<PokerNum> pokerNums1 = getPokerNums(pokers1);
-        List<PokerNum> pokerNums2 = getPokerNums(pokers2);
-
-        if (pokers1.containsAll(PokerConstant.POKER_NUM_OF_1_2_3_4_5)) {
-            if (pokers2.containsAll(PokerConstant.POKER_NUM_OF_1_2_3_4_5)) {
-                return GameResult.DRAW;
-            }
-            return GameResult.LOSS;
-        } else if (pokers2.containsAll(PokerConstant.POKER_NUM_OF_1_2_3_4_5)) {
-            return GameResult.WIN;
-        }
-
-        return compareNumOneByOne(pokerNums1, pokerNums2);
+    private static List<PokerNum> getPokerNums(List<Poker> pokers) {
+        return pokers.stream().map(Poker::getNum).collect(Collectors.toList());
     }
 }

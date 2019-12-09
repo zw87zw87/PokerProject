@@ -11,7 +11,7 @@ public class Poker implements Comparable<Poker>{
     private PokerColor color;
     private PokerNum num;
 
-    public Poker(String value) throws ParameterException {
+    Poker(String value) throws ParameterException {
         PokerUtil.ifTrueThrowException(value.length() != 2, String .format("The length %d of poker value is illegal.", value.length()));
         this.num = PokerNum.getPokerNum(value.charAt(0));
         this.color = PokerColor.getPokerColor(value.charAt(1));

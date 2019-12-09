@@ -19,6 +19,16 @@ public class PokerHandsImplTest {
         assertEquals(GameResult.LOSS, hands.playGame("2H 3D 5S 9C KD", "2H 3D 5S 9C A"));
     }
 
+    @Test(expected = ParameterException.class)
+    public void throw_exception_when_poker_color_is_illegal() throws ParameterException {
+        assertEquals(GameResult.LOSS, hands.playGame("2H 3D 5S 9C Ka", "2H 3D 5S 9C 9A"));
+    }
+
+    @Test(expected = ParameterException.class)
+    public void throw_exception_when_poker_num_is_illegal() throws ParameterException {
+        assertEquals(GameResult.LOSS, hands.playGame("2H 3D 5S 9C 0A", "2H 3D 5S 9C 9A"));
+    }
+
     @Test
     public void test() throws ParameterException {
         // 结果是白色选手获胜
