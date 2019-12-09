@@ -8,6 +8,7 @@ public class PokerRankTest {
 
     @Test
     public void test() {
+//        PokerRank.STRAIGHT_FLUSH.isCurrentRank.apply();
 
     }
 

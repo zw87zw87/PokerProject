@@ -1,8 +1,13 @@
 package com.zte.poker.service;
 
+import com.google.common.collect.ImmutableList;
 import com.zte.poker.bean.GameResult;
+import com.zte.poker.bean.PokerNum;
+import com.zte.poker.constant.PokerConstant;
 import com.zte.poker.exception.ParameterException;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,6 +22,11 @@ public class PokerHandsImplTest {
     @Test(expected = ParameterException.class)
     public void throw_exception_when_value_is_illegal() throws ParameterException {
         assertEquals(GameResult.LOSS, hands.playGame("2H 3D 5S 9C KD", "2H 3D 5S 9C A"));
+    }
+
+    @Test(expected = ParameterException.class)
+    public void throw_exception_when_value_length_is_illegal() throws ParameterException {
+        assertEquals(GameResult.LOSS, hands.playGame("2H 3D 5S 9C KD", "2H 3D 5S 9C"));
     }
 
     @Test(expected = ParameterException.class)
@@ -46,6 +56,10 @@ public class PokerHandsImplTest {
         assertEquals(GameResult.LOSS, hands.playGame("3H 3D 2S 8S 8D", "2H 4D 2S 9C 9D"));
         assertEquals(GameResult.LOSS, hands.playGame("3H 3D 2S 8S 3D", "9H 4D 2S 9C 9D"));
 
+        assertEquals(GameResult.DRAW, hands.playGame("2H 3D AS 5S 4D", "AH 4D 5S 3C 2D"));
+        assertEquals(GameResult.LOSS, hands.playGame("2H 3D AS 5S 4D", "6H 4D 5S 3C 2D"));
+        assertEquals(GameResult.WIN, hands.playGame("6H 3D 2S 5S 4D", "AH 4D 5S 3C 2D"));
+
         assertEquals(GameResult.DRAW, hands.playGame("3H AD 2S 5S 4D", "2H AD 5S 4C 3D"));
         assertEquals(GameResult.LOSS, hands.playGame("3H AD 2S 5S 4D", "2H 6D 5S 4C 3D"));
         assertEquals(GameResult.LOSS, hands.playGame("3H 6D 2S 5S 4D", "TH KD JS QC AD"));
@@ -56,6 +70,8 @@ public class PokerHandsImplTest {
 
     @Test
     public void diff_rank_compare() throws ParameterException {
-        assertEquals(GameResult.WIN, hands.playGame("2H 3D 2S 9C 7D", "2C 3H 4S 8C AH"));
+//        assertEquals(GameResult.WIN, hands.playGame("2H 3D 2S 9C 7D", "2C 3H 4S 8C AH"));
+
+        assertEquals(GameResult.LOSS, hands.playGame("2H 3D AS 5S 4D", "6H 4D 5S 3C 2D"));
     }
 }

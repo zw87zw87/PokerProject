@@ -38,7 +38,11 @@ public enum PokerRank {
     }
 
     private static boolean isStraight(List<Poker> pokers) {
-        return IntStream.range(0, pokers.size() - 1).allMatch(index -> pokers.get(index).compareTo(pokers.get(index + 1)) == -1);
+        List<PokerNum> pokerNums = getPokerNums(pokers);
+        if (pokerNums.containsAll(PokerConstant.POKER_NUM_OF_1_2_3_4_5)) {
+            return true;
+        }
+        return IntStream.range(0, pokers.size() - 1).allMatch(index -> pokerNums.get(index).compareTo(pokerNums.get(index + 1)) == 1);
     }
 
     private static boolean isNumOfPairs(List<Poker> pokers, Long pairsNum, int pairsSize) {
@@ -50,12 +54,12 @@ public enum PokerRank {
         List<PokerNum> pokerNums1 = getPokerNums(pokers1);
         List<PokerNum> pokerNums2 = getPokerNums(pokers2);
 
-        if (pokers1.containsAll(PokerConstant.POKER_NUM_OF_1_2_3_4_5)) {
-            if (pokers2.containsAll(PokerConstant.POKER_NUM_OF_1_2_3_4_5)) {
+        if (pokerNums1.containsAll(PokerConstant.POKER_NUM_OF_1_2_3_4_5)) {
+            if (pokerNums2.containsAll(PokerConstant.POKER_NUM_OF_1_2_3_4_5)) {
                 return GameResult.DRAW;
             }
             return GameResult.LOSS;
-        } else if (pokers2.containsAll(PokerConstant.POKER_NUM_OF_1_2_3_4_5)) {
+        } else if (pokerNums2.containsAll(PokerConstant.POKER_NUM_OF_1_2_3_4_5)) {
             return GameResult.WIN;
         }
 

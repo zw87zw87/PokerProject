@@ -8,8 +8,8 @@ import java.util.Objects;
 
 @Getter
 public class Poker implements Comparable<Poker>{
-    private PokerColor color;
-    private PokerNum num;
+    private final PokerColor color;
+    private final PokerNum num;
 
     Poker(String value) throws ParameterException {
         PokerUtil.ifTrueThrowException(value.length() != 2, String .format("The length %d of poker value is illegal.", value.length()));
