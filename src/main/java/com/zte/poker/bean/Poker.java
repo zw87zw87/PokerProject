@@ -34,12 +34,4 @@ public class Poker implements Comparable<Poker>{
     public int hashCode() {
         return Objects.hash(num);
     }
-
-    @Override
-    public String toString() {
-        return "Poker{" +
-                "color=" + color +
-                ", num=" + num +
-                '}';
-    }
 }

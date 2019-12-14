@@ -1,13 +1,8 @@
 package com.zte.poker.service;
 
-import com.google.common.collect.ImmutableList;
 import com.zte.poker.bean.GameResult;
-import com.zte.poker.bean.PokerNum;
-import com.zte.poker.constant.PokerConstant;
 import com.zte.poker.exception.ParameterException;
 import org.junit.Test;
-
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -70,8 +65,8 @@ public class PokerHandsImplTest {
 
     @Test
     public void diff_rank_compare() throws ParameterException {
-//        assertEquals(GameResult.WIN, hands.playGame("2H 3D 2S 9C 7D", "2C 3H 4S 8C AH"));
-
-        assertEquals(GameResult.LOSS, hands.playGame("2H 3D AS 5S 4D", "6H 4D 5S 3C 2D"));
+        assertEquals(GameResult.LOSS, hands.playGame("2H 3D KS 5S 4D", "2H KC 3S 2H TD"));
+        assertEquals(GameResult.WIN, hands.playGame("2H KC 3S 2S KD", "3H AC 5S AH 4D"));
+        assertEquals(GameResult.DRAW, hands.playGame("2H KC 3S 2S KD", "2D KH 3H 2C KS"));
     }
 }

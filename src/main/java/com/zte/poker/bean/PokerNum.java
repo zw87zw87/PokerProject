@@ -51,11 +51,4 @@ public enum PokerNum {
         return Optional.ofNullable(name2PokerNum.get(name))
                 .orElseThrow(() -> new ParameterException(String.format("The name %c of poker num is illegal.", name)));
     }
-
-    @Override
-    public String toString() {
-        return "PokerNum{" +
-                "num=" + num +
-                '}';
-    }
 }
