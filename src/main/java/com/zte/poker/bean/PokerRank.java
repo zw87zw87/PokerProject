@@ -93,6 +93,12 @@ public enum PokerRank {
         return GameResult.DRAW;
     }
 
+    /**
+     * 对扑克按照扑克数字进行排序，先按照相同扑克数字的张数排序，如果张数相同，再对相同张数的数字大小排序
+     * 例如： 2 2 3 3 4  ->  3 2 4 , 2 2 2 3 4 ->  2 4 3 , 2 2 2 3 3 -> 2 3
+     * @param pokers
+     * @return 排序后的数字列表
+     */
     private static List<PokerNum> getSortedPokerPairs(List<Poker> pokers) {
         return pokers.stream()
                 .collect(groupingBy(Poker::getNum, counting()))
