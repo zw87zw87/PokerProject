@@ -20,17 +20,17 @@ public enum PokerColor {
         this.priority = priority;
     }
 
-    private static final Map<Character, PokerColor> name2PokerColor = new HashMap<>(4);
+    private static final Map<Character, PokerColor> NAME_2_POKER_COLOR = new HashMap<>(4);
 
     static {
-        name2PokerColor.put(SPADE.name, SPADE);
-        name2PokerColor.put(HEART.name, HEART);
-        name2PokerColor.put(DIAMOND.name, DIAMOND);
-        name2PokerColor.put(CLUB.name, CLUB);
+        NAME_2_POKER_COLOR.put(SPADE.name, SPADE);
+        NAME_2_POKER_COLOR.put(HEART.name, HEART);
+        NAME_2_POKER_COLOR.put(DIAMOND.name, DIAMOND);
+        NAME_2_POKER_COLOR.put(CLUB.name, CLUB);
     }
 
     public static PokerColor getPokerColor(Character name) throws ParameterException {
-        return Optional.ofNullable(name2PokerColor.get(name))
+        return Optional.ofNullable(NAME_2_POKER_COLOR.get(name))
                 .orElseThrow(() -> new ParameterException(String.format("The name %c of poker color is illegal.", name)));
     }
 }

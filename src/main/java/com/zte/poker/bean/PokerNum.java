@@ -29,26 +29,26 @@ public enum PokerNum {
         this.num = num;
     }
 
-    private static final Map<Character, PokerNum> name2PokerNum = new HashMap<>(13);
+    private static final Map<Character, PokerNum> NAME_2_POKER_NUM = new HashMap<>(13);
 
     static {
-        name2PokerNum.put(TWO.name, TWO);
-        name2PokerNum.put(THREE.name, THREE);
-        name2PokerNum.put(FOUR.name, FOUR);
-        name2PokerNum.put(FIVE.name, FIVE);
-        name2PokerNum.put(SIX.name, SIX);
-        name2PokerNum.put(SEVEN.name, SEVEN);
-        name2PokerNum.put(EIGHT.name, EIGHT);
-        name2PokerNum.put(NINE.name, NINE);
-        name2PokerNum.put(TEN.name, TEN);
-        name2PokerNum.put(ELEVEN.name, ELEVEN);
-        name2PokerNum.put(TWELVE.name, TWELVE);
-        name2PokerNum.put(THIRTEEN.name, THIRTEEN);
-        name2PokerNum.put(ONE.name, ONE);
+        NAME_2_POKER_NUM.put(TWO.name, TWO);
+        NAME_2_POKER_NUM.put(THREE.name, THREE);
+        NAME_2_POKER_NUM.put(FOUR.name, FOUR);
+        NAME_2_POKER_NUM.put(FIVE.name, FIVE);
+        NAME_2_POKER_NUM.put(SIX.name, SIX);
+        NAME_2_POKER_NUM.put(SEVEN.name, SEVEN);
+        NAME_2_POKER_NUM.put(EIGHT.name, EIGHT);
+        NAME_2_POKER_NUM.put(NINE.name, NINE);
+        NAME_2_POKER_NUM.put(TEN.name, TEN);
+        NAME_2_POKER_NUM.put(ELEVEN.name, ELEVEN);
+        NAME_2_POKER_NUM.put(TWELVE.name, TWELVE);
+        NAME_2_POKER_NUM.put(THIRTEEN.name, THIRTEEN);
+        NAME_2_POKER_NUM.put(ONE.name, ONE);
     }
 
     public static PokerNum getPokerNum(Character name) throws ParameterException {
-        return Optional.ofNullable(name2PokerNum.get(name))
+        return Optional.ofNullable(NAME_2_POKER_NUM.get(name))
                 .orElseThrow(() -> new ParameterException(String.format("The name %c of poker num is illegal.", name)));
     }
 }
